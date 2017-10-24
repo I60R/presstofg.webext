@@ -1,0 +1,31 @@
+{
+
+  "manifest_version": 2,
+  "name": "Press to fg.",
+  "version": "0.1",
+
+  "description": "Press (middle) button on link to open in foreground tab",
+
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["presstofg.js"]
+    }
+  ],
+
+  "background": {
+    "persistent": false,
+    "scripts": ["presstofg_bg.js"]
+  },
+
+  "options_ui": {
+    "page": "options/options.html"
+  },
+
+  "permissions": [
+    "tabs",
+    "storage",
+    "<all_urls>"
+  ]
+
+}
