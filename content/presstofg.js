@@ -9,7 +9,7 @@
 
   const browser = (chrome || browser);
 
-  browser.storage.sync.get(['button', 'delay'], function(res) {
+  browser.storage.local.get(['button', 'delay'], function(res) {
     const button = res.button || 4;
     const delay = res.delay || 200;
 

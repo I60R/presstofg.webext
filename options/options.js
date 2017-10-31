@@ -10,7 +10,7 @@
   const browser = (chrome || browser)
 
   function load() {
-    browser.storage.sync.get(['button', 'delay'], function(res) {
+    browser.storage.local.get(['button', 'delay'], function(res) {
       document.querySelector('input[value="' + (res.button || 4) + '"]').checked = true
       document.querySelector('#delay').value = (res.delay || 200)
     });
@@ -20,7 +20,7 @@
 
 
   function save() {
-    browser.storage.sync.set({
+    browser.storage.local.set({
       button: document.querySelector('input[name="button"]:checked').value,
       delay: document.querySelector('#delay').value
     });
