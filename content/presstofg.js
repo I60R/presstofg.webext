@@ -13,30 +13,26 @@
     const button = res.button || 4;
     const delay = res.delay || 200;
 
-    let isTargetButtonPressed;
+    let isAElementPressed;
     let switchTabTimeout;
 
-    const aElements = document.getElementsByTagName("a");
-    for (let i = 0; i < aElements.length; i++) {
-      let aElement = aElements[i];
+    document.body.addEventListener('mousedown', function(ev) {
+      const target = ev.target
+      isAElementPressed = (ev.buttons == button && target && target.nodeName == "A");
+      if (isAElementPressed) {
+        switchTabTimeout = setTimeout(function() {
+          browser.runtime.sendMessage({
+            newUrl: target.href
+          });
+        }, delay);
+      }
+    });
 
-      aElement.addEventListener('mousedown', function(ev) {
-        isTargetButtonPressed = (ev.buttons == button);
-        if (isTargetButtonPressed) {
-          switchTabTimeout = setTimeout(function() {
-            browser.runtime.sendMessage({
-              newUrl: aElement.href
-            });
-          }, delay);
-        }
-      });
-
-      aElement.addEventListener('mouseup', function(ev) {
-        if (isTargetButtonPressed) {
-          ev.preventDefault();
-          clearTimeout(switchTabTimeout);
-        }
-      });
-    }
+    document.body.addEventListener('mouseup', function(ev) {
+      if (isAElementPressed) {
+        ev.preventDefault();
+        clearTimeout(switchTabTimeout);
+      }
+    });
   });
 })();

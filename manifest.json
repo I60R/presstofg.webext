@@ -2,7 +2,7 @@
 
   "manifest_version": 2,
   "name": "Press to fg.",
-  "version": "0.1",
+  "version": "0.3",
 
   "description": "Press (middle) button on link to open in foreground tab",
 
